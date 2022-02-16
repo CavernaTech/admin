@@ -1,4 +1,3 @@
-import React from 'react';
 import { ThemeProvider, useMediaQuery } from '@mui/material';
 
 import theme from './theme';
