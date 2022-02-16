@@ -7,14 +7,10 @@ const AuthController = {
             set(authAtom, false);
         },
     login:
-        ({ snapshot, set }) =>
-        async (username, password) => {
-            const auth = await snapshot.getPromise(authAtom);
-            if (password === '145823') {
-                await set(authAtom, true);
-                return true;
-            }
-            return false;
+        ({ set }) =>
+        async () => {
+            await set(authAtom, true);
+            return true;
         }
 };
 

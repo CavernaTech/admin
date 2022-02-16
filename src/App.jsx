@@ -4,8 +4,8 @@ import { Route, Routes } from 'react-router-dom';
 
 import Theme from './utils/theme/theme.component';
 import DashboardPage from './pages/dashboard';
-import LoginPage from './pages/login.page';
 import RequireAuth from './utils/require-auth';
+import LoginContainer from 'containers/login.container';
 
 function App() {
     return (
@@ -22,7 +22,7 @@ function App() {
                                 </RequireAuth>
                             }
                         />
-                        <Route path="/login" element={<LoginPage />} />
+                        <Route path="/login" element={<LoginContainer />} />
                     </Routes>
                 </main>
             </Theme>
