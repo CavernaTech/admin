@@ -1,11 +1,20 @@
-import React from 'react';
-import { Container, Typography } from '@mui/material';
+import { RecoilRoot } from 'recoil';
+import { CssBaseline } from '@mui/material';
+import { Route, Routes } from 'react-router-dom';
+
+import Theme from './utils/theme/theme.component';
+import DashboardPage from './pages/dashboard';
 
 function App() {
     return (
-        <Container>
-            <Typography variant="h3">Admin</Typography>
-        </Container>
+        <RecoilRoot>
+            <Theme>
+                <CssBaseline />
+                <Routes>
+                    <Route path="/" element={<DashboardPage />} />
+                </Routes>
+            </Theme>
+        </RecoilRoot>
     );
 }
 
