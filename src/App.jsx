@@ -1,15 +1,20 @@
-import { RecoilRoot } from 'recoil';
+import { useState } from 'react';
 import { CssBaseline } from '@mui/material';
 import { Route, Routes } from 'react-router-dom';
+import { useRecoilCallback } from 'recoil';
 
 import Theme from './utils/theme/theme.component';
 import DashboardPage from './pages/dashboard';
 import RequireAuth from './utils/require-auth';
 import LoginContainer from 'containers/login.container';
+import AuthController from 'controllers/auth.controller';
 
 function App() {
-    return (
-        <RecoilRoot>
+    const [loading, setLoading] = useState(true);
+    useRecoilCallback(AuthController.loadAuth)(setLoading);
+
+    if (!loading) {
+        return (
             <Theme>
                 <CssBaseline />
                 <main>
@@ -26,8 +31,9 @@ function App() {
                     </Routes>
                 </main>
             </Theme>
-        </RecoilRoot>
-    );
+        );
+    }
+    return <p>carregando</p>;
 }
 
 export default App;

@@ -1,4 +1,15 @@
-import { Button, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper } from '@mui/material';
+import { useState } from 'react';
+import {
+    Button,
+    Checkbox,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    FormControlLabel,
+    Paper,
+    Typography
+} from '@mui/material';
 import { Google } from '@mui/icons-material';
 import { makeStyles } from '@mui/styles';
 import { useNavigate } from 'react-router-dom';
@@ -17,10 +28,13 @@ const useStyles = makeStyles(() => ({
 function LoginPage({ login }) {
     const classes = useStyles();
     const navigate = useNavigate();
+    const [keep, setKeep] = useState(false);
+
+    const handleKeep = () => setKeep(!keep);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        login().then((status) => {
+        login(keep).then((status) => {
             if (status) navigate(-1);
         });
     };
@@ -30,6 +44,12 @@ function LoginPage({ login }) {
             <DialogTitle>Autenticação de Acesso</DialogTitle>
             <DialogContent>
                 <DialogContentText>É necessário login para acessar a ferramenta</DialogContentText>
+                <FormControlLabel
+                    checked={keep}
+                    control={<Checkbox />}
+                    label={<Typography variant="body1">Manter-me conectado</Typography>}
+                    onChange={handleKeep}
+                />
             </DialogContent>
             <DialogActions>
                 <Button color="primary" fullWidth variant="outlined" startIcon={<Google />} onClick={handleSubmit}>
