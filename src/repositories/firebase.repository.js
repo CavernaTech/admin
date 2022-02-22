@@ -3,19 +3,19 @@ import { getDatabase } from 'firebase/database';
 import { GoogleAuthProvider, signInWithPopup, getAuth, browserLocalPersistence, browserSessionPersistence } from 'firebase/auth';
 
 const firebaseConfig = {
-    apiKey: 'AIzaSyD1n9D3brmqs-sJBUBkr86EsJoYfUk4zm4',
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
 
-    authDomain: 'cavernatech-website.firebaseapp.com',
+    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
 
-    databaseURL: 'https://cavernatech-website-default-rtdb.europe-west1.firebasedatabase.app',
+    databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
 
-    projectId: 'cavernatech-website',
+    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
 
-    storageBucket: 'cavernatech-website.appspot.com',
+    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
 
-    messagingSenderId: '767644680985',
+    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
 
-    appId: '1:767644680985:web:acc8851b3b2773ff7bbb88'
+    appId: process.env.REACT_APP_FIREBASE_APP_ID
 };
 
 const app = initializeApp(firebaseConfig);
@@ -29,7 +29,6 @@ provider.addScope('email');
 
 const FirebaseRepository = {
     login: async (keep) => {
-        console.log(keep);
         auth.setPersistence(keep ? browserLocalPersistence : browserSessionPersistence);
         return signInWithPopup(auth, provider)
             .then(() => true)
