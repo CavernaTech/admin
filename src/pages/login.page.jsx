@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import {
     Button,
     Checkbox,
@@ -59,5 +60,9 @@ function LoginPage({ login }) {
         </Paper>
     );
 }
+
+LoginPage.propTypes = {
+    login: PropTypes.func.isRequired
+};
 
 export default LoginPage;
