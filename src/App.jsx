@@ -4,14 +4,16 @@ import { Route, Routes } from 'react-router-dom';
 import { useRecoilCallback } from 'recoil';
 
 import Theme from './utils/theme/theme.component';
-import DashboardPage from './pages/dashboard';
 import RequireAuth from './utils/require-auth';
 import LoginContainer from 'containers/login.container';
+import DashboardContainer from 'containers/dashboard.container';
 import AuthController from 'controllers/auth.controller';
+import ContatoController from 'controllers/contato.controller';
 
 function App() {
     const [loading, setLoading] = useState(true);
     useRecoilCallback(AuthController.loadAuth)(setLoading);
+    ContatoController.useContatos();
 
     if (!loading) {
         return (
@@ -23,7 +25,7 @@ function App() {
                             path="/"
                             element={
                                 <RequireAuth>
-                                    <DashboardPage />
+                                    <DashboardContainer />
                                 </RequireAuth>
                             }
                         />

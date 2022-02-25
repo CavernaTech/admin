@@ -20,8 +20,8 @@ class ContatoModel {
         this.message = message;
     }
 
-    FromJSON(json) {
-        return this({
+    static FromJSON(json) {
+        return new this({
             ...json,
             agreement: new Date(json.agreement)
         });
