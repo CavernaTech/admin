@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getDatabase } from 'firebase/database';
+import { getDatabase, ref, onValue } from 'firebase/database';
 import { GoogleAuthProvider, signInWithPopup, getAuth, browserLocalPersistence, browserSessionPersistence } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -21,11 +21,16 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 
-getDatabase(app);
+const db = getDatabase(app);
+const contatosRef = ref(db, 'contatos');
 
 const provider = new GoogleAuthProvider();
 provider.addScope('profile');
 provider.addScope('email');
+
+const state = {
+    isListening: false
+};
 
 const FirebaseRepository = {
     login: async (keep) => {
@@ -40,6 +45,13 @@ const FirebaseRepository = {
     isLogged: (callback) => {
         if (callback instanceof Function) auth.onAuthStateChanged(callback);
         return auth.currentUser !== null;
+    },
+    listenContatos: (callback) => {
+        if (!state.isListening) {
+            state.isListening = true;
+            return onValue(contatosRef, callback);
+        }
+        return false;
     }
 };
 
